@@ -8,13 +8,13 @@ db = DBConnector()
 
 
 def set_from_tuple(db_tuple):
-    """Преобразование кортежа из запроса во множество"""
+    """Converting a tuple from a query to a set"""
     return {x[0] for x in db_tuple}
 
 
 class Command(BaseCommand):
-    """Класс для запуска скрипта через manage.py"""
-    help = 'Запуск менеджера ботов'
+    """Class to run script via manage.py"""
+    help = 'Launching the Bot Manager'
 
     def handle(self, *args, **options):
         bm = BotsManager()
@@ -24,24 +24,24 @@ class Command(BaseCommand):
 
 
 class BotsManager:
-    """Класс для управления запуском и остановкой ботов"""
+    """A class to control the start and stop of bots"""
 
     def __init__(self):
         self.tokens = db.get_bot_tokens()
 
     def update_checker(self):
-        """Цикл проверяющий обновление токенов"""
+        """Loop checking token refresh"""
         while True:
             db.__init__()
             if self.tokens == db.get_bot_tokens():
-                print('Обновления токенов отсутствуют')
+                print('No token updates')
             else:
                 self.update(self.tokens, db.get_bot_tokens())
-                print('Токены обновлены')
+                print('Tokens updated')
             sleep(5)
 
     def update(self, old_tokens, new_tokens):
-        """Завершает процесс удаленного из БД токена, и запускает процесс для добавленного"""
+        """Ends the process of the token removed from the database, and starts the process for the added one"""
         killer_set = old_tokens - new_tokens
         run_set = new_tokens - old_tokens
         self.kill_process(killer_set)
@@ -50,16 +50,16 @@ class BotsManager:
         self.__init__()
 
     def kill_process(self, *args):
-        """Остановка процессов по токену бота"""
+        """Stopping processes by bot token"""
         for i in args[0]:
             process_command = ['python3', 'manage.py', 'app', i]
             for process in psutil.process_iter():
                 if process.cmdline() == process_command:
-                    print('Процесс найден, отключаю')
+                    print('Process found, disable')
                     process.terminate()
 
     def run_process(self, *args):
-        """Запуск процессов по токену бота"""
+        """Launching processes by bot token"""
         for i in args[0]:
             process_command = ['python3', 'manage.py', 'app', i]
             Popen(process_command)

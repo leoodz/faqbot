@@ -2,6 +2,14 @@ import os
 DEBUG=True
 #ROOT_URLCONF = 'AdminForFAQ.urls'
 ROOT_URLCONF = 'AdminForFAQ.urls'
+ALLOWED_HOSTS = [
+  'https://faqbot.leoodz.repl.co',
+  'b00b9f5b-9e44-40a2-9890-82f8628e4eb2.id.repl.co',
+  'faqbot.leoodz.repl.co',
+]
+CSRF_TRUSTED_ORIGINS = [
+  'https://faqbot.leoodz.repl.co','https://*.127.0.0.1'
+]
 SECRET_KEY='54heg!3=i#1puqy7qkd8qbu_)y!xmpts4v^s^5zd4!pk1wnpnc'
 INSTALLED_APPS = [
 'django.contrib.admin',
@@ -42,10 +50,10 @@ TEMPLATES = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'telegram',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
+        'NAME': 'bpaxz9yjjsutqfqywdqg',
+        'USER': 'unwvzhdmdpwnir2v',
+        'PASSWORD': 'uI3OYyX6rmbBADsW36sl',
+        'HOST': 'bpaxz9yjjsutqfqywdqg-mysql.services.clever-cloud.com',
         'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",  # Strict mode

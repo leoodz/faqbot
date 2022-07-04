@@ -17,7 +17,8 @@ class DBConnector:
     def get_bot_tokens(self):
         """Получение токенов"""
         query = """ SELECT token
-                    FROM FAQ_settingsbot
+                    FROM 
+      FAQ_settingsbot
                     """
         with self.connection.cursor() as cursor:
             cursor.execute(query)
@@ -34,7 +35,8 @@ class BotQueries(DBConnector):
     def get_bot_id(self, token):
         """Получение ID бота"""
         query = """select id
-                    FROM FAQ_settingsbot
+                    FROM 
+      FAQ_settingsbot
                     WHERE token=%s"""
         with self.connection.cursor() as cursor:
             cursor.execute(query, (token,))
@@ -44,7 +46,8 @@ class BotQueries(DBConnector):
     def get_all_questions(self):
         """Получение вопросов"""
         query = """ SELECT id, question, answer, general 
-                    FROM FAQ_questions
+                    FROM 
+      FAQ_questions
                     WHERE bot_id=%s"""
         with self.connection.cursor() as cursor:
             cursor.execute(query, (self.bot_id,))
@@ -55,8 +58,10 @@ class BotQueries(DBConnector):
     def get_questions_relations(self):
         """Получение связей вопросов"""
         query = """ SELECT base_id, sub_id
-                    FROM FAQ_relationquestion as rq 
-                    LEFT JOIN FAQ_questions as qu
+                    FROM 
+      FAQ_relationquestion as rq 
+                    LEFT JOIN 
+      FAQ_questions as qu
                     ON qu.id = rq.sub_id
                     WHERE bot_id=%s"""
         with self.connection.cursor() as cursor:
@@ -69,16 +74,20 @@ class BotQueries(DBConnector):
         query = """ SELECT upd.bot_id, max(upd.updated) as last_update
                     FROM 
                         (   SELECT q.bot_id AS bot_id, max(rq.updated) AS updated
-                            FROM FAQ_relationquestion as rq  left join FAQ_questions as q
+                            FROM 
+      FAQ_relationquestion as rq  left join 
+      FAQ_questions as q
                             ON rq.base_id = q.id
                             GROUP BY q.bot_id
                             union
                             SELECT id , max(updated)
-                            FROM FAQ_settingsbot
+                            FROM 
+      FAQ_settingsbot
                             GROUP BY id
                             union
                             SELECT bot_id, max(updated)
-                            FROM FAQ_questions
+                            FROM 
+      FAQ_questions
                             GROUP BY bot_id) as upd
                     WHERE bot_id=%s
                     """
@@ -93,7 +102,8 @@ class BotQueries(DBConnector):
                             interval_refresh_base, 
                             title_button_row, 
                             other_button_row
-                    FROM FAQ_settingsbot
+                    FROM 
+      FAQ_settingsbot
                     WHERE id=%s"""
         with self.connection.cursor() as cursor:
             cursor.execute(query, (self.bot_id,))
@@ -102,7 +112,8 @@ class BotQueries(DBConnector):
 
     def change_bot_status(self, token, status):
         """Изменить статус бота"""
-        query = """ UPDATE FAQ_settingsbot
+        query = """ UPDATE 
+      FAQ_settingsbot
                     SET status =%s
                     WHERE token =%s """
 

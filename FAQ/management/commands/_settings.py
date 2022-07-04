@@ -2,7 +2,7 @@ from FAQ.management.commands._loader import db
 
 
 class Settings:
-    """Настройки телеграм бота"""
+    """Telegram bot settings"""
 
     def __init__(self):
 

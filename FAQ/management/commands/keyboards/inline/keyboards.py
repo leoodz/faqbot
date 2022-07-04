@@ -5,7 +5,7 @@ from FAQ.management.commands._settings import Settings
 
 
 class Keyboards:
-    """Класс для управления клавиатурами бота"""
+    """Class for managing bot keyboards"""
 
     def __init__(self):
         # Инициализация настроек
@@ -16,7 +16,7 @@ class Keyboards:
         # Получение даты последнего изменения базы для контроля обновлений
         self.last_update = db.get_last_update()
         # Создание словарей клавиатур и ответов
-        self.add_button_to_all_keyboards("Вернуться на главную", "to_main")
+        self.add_button_to_all_keyboards("Go back to the main page", "to_main")
         # Инициализация клавиатур
         self.title_keyboard = InlineKeyboardMarkup(row_width=self.setting.title_button_row)
         self.create_title_keyboard_button()
@@ -26,14 +26,14 @@ class Keyboards:
 
 
     def create_title_keyboard_button(self):
-        """Создание кнопок для стартовой клавиатуры"""
+        """Creating buttons for the start keyboard"""
         for question, data in self.questions.items():
             if data[2]:
                 button = InlineKeyboardButton(text=data[0], callback_data=f"sub,{question}")
                 self.title_keyboard.insert(button)
 
     def create_other_keyboard_button(self):
-        """Создание кнопок для дополнительных клавиатур"""
+        """Creating buttons for additional keyboards"""
         for question in self.questions:
             for relation in self.relations:
                 if relation[0] == question:
@@ -41,22 +41,22 @@ class Keyboards:
                     self.other_keyboards[question].insert(button)
 
     def add_button_to_all_keyboards(self, text, callback_data):
-        """Функция добавления кнопки во все клавиатуры, кроме стартовой"""
+        """The function of adding a button to all keyboards, except for the start one"""
         for question in self.questions:
             try:
                 if int(question):
                     self.relations.append((question, callback_data))
             except TypeError:
-                print(question + " - не число")
+                print(question + " - not a number")
         self.questions.update({callback_data: (text, 0, 0)})
 
     async def bot_updater(self):
-        """Обновление кнопок бота при изменении базы"""
+        """Update bot buttons on base change"""
         while True:
             db.__init__(BOT_TOKEN)
             if self.last_update == db.get_last_update():
-                print(f'Бот {db.bot_id} обновления отсутствуют')
+                print(f'Bot {db.bot_id} no updates')
             else:
                 self.__init__()
-                print(f'Данные обновлены {self.last_update.strftime("%d %B %Y %I:%M%p")} бот {db.bot_id}')
+                print(f'Data updated {self.last_update.strftime("%d %B %Y %I:%M%p")} bot {db.bot_id}')
             await asyncio.sleep(self.setting.interval_refresh_base)
