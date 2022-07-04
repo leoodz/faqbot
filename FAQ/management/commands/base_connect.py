@@ -3,10 +3,10 @@ from AdminForFAQ.settings import DATABASES
 
 
 class DBConnector:
-    """SQL запросы к базе данных"""
+    """SQL queries to the database"""
 
     def __init__(self):
-        """Подключение к базе данных"""
+        """Database connection"""
         self.connection = pymysql.connect(host=DATABASES['default']['HOST'],
                                           user=DATABASES['default']['USER'],
                                           password=DATABASES['default']['PASSWORD'],
@@ -15,7 +15,7 @@ class DBConnector:
                                           )
 
     def get_bot_tokens(self):
-        """Получение токенов"""
+        """Getting tokens"""
         query = """ SELECT token
                     FROM FAQ_settingsbot
                     """
@@ -25,14 +25,14 @@ class DBConnector:
             return tokens_set
 
 class BotQueries(DBConnector):
-    """Запросы экземпляров бота"""
+    """Bot Instance Requests"""
 
     def __init__(self, token):
         super().__init__()
         self.bot_id = self.get_bot_id(token)
 
     def get_bot_id(self, token):
-        """Получение ID бота"""
+        """Getting the bot ID"""
         query = """select id
                     FROM FAQ_settingsbot
                     WHERE token=%s"""
@@ -42,7 +42,7 @@ class BotQueries(DBConnector):
             return bot_id
 
     def get_all_questions(self):
-        """Получение вопросов"""
+        """Getting Questions"""
         query = """ SELECT id, question, answer, general 
                     FROM FAQ_questions
                     WHERE bot_id=%s"""
@@ -53,7 +53,7 @@ class BotQueries(DBConnector):
             return questions
 
     def get_questions_relations(self):
-        """Получение связей вопросов"""
+        """Get question links"""
         query = """ SELECT base_id, sub_id
                     FROM FAQ_relationquestion as rq 
                     LEFT JOIN FAQ_questions as qu
@@ -65,7 +65,7 @@ class BotQueries(DBConnector):
             return relations
 
     def get_last_update(self):
-        """Дата последнего изменения в базе"""
+        """Date of the last change in the database"""
         query = """ SELECT upd.bot_id, max(upd.updated) as last_update
                     FROM 
                         (   SELECT q.bot_id AS bot_id, max(rq.updated) AS updated
@@ -88,7 +88,7 @@ class BotQueries(DBConnector):
             return last_update
 
     def get_settings_bot(self):
-        """Настройки бота"""
+        """Settings bot"""
         query = """ SELECT  title_question, 
                             interval_refresh_base, 
                             title_button_row, 
@@ -101,7 +101,7 @@ class BotQueries(DBConnector):
             return settings
 
     def change_bot_status(self, token, status):
-        """Изменить статус бота"""
+        """Change bot status"""
         query = """ UPDATE FAQ_settingsbot
                     SET status =%s
                     WHERE token =%s """

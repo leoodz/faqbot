@@ -8,16 +8,16 @@ class Keyboards:
     """Class for managing bot keyboards"""
 
     def __init__(self):
-        # Инициализация настроек
+        # Initializing settings
         self.setting = Settings()
-        # Получение вопросов и связей из базы данных
+        # Retrieving questions and relationships from the database
         self.questions = db.get_all_questions()
         self.relations = db.get_questions_relations()
-        # Получение даты последнего изменения базы для контроля обновлений
+        # Getting the date of the last change of the database for update control
         self.last_update = db.get_last_update()
         # Создание словарей клавиатур и ответов
         self.add_button_to_all_keyboards("Go back to the main page", "to_main")
-        # Инициализация клавиатур
+        # Creating keyboard and response dictionaries
         self.title_keyboard = InlineKeyboardMarkup(row_width=self.setting.title_button_row)
         self.create_title_keyboard_button()
         self.other_keyboards = {question_id: InlineKeyboardMarkup(row_width=self.setting.other_button_row)
