@@ -1,0 +1,31 @@
+{% extends "base_FAQ.html" %}
+{% block title %}Новый вопрос{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center text-uppercase color1 pt-2">{{ bot.bot_name }}</h2>
+            <h3 class="text-center color2 pt-2">Новый вопрос</h3>
+        </div>
+    </div>
+    <form method="post">{% csrf_token %}
+       {% for f in form %}
+            <div class="row row-cols-md-2 pb-2">
+                <label class="col-md-3 col-form-label" for="{{ f.id_for_label }}"> {{ f.label }}:</label>
+                <div class="col-md-7">
+                    {{ f }}
+                </div>
+                <div class="form-error --danger">
+                    {{f.errors}}
+                </div>
+            </div>
+        {% endfor %}
+        <div class="submit-row">
+            <a href="{% url 'FAQ:settings_bot_detail' bot.id %}" class="btn btn-outline-danger delete">Отмена</a>
+            <input type="submit" class="btn btn-outline-success default" value="Сохранить" name="_save">
+            <input type="submit" class="btn btn-outline-success custom" value="Добавить дочерние вопросы" name="_add_sub">
+            <input type="submit" class="btn btn-outline-success custom" value="Сохранить и добавить другой вопрос" name="_addanother">
+        </div>
+    </form>
+</div>
+{% endblock %}

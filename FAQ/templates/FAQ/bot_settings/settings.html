@@ -1,0 +1,39 @@
+{% extends "base_FAQ.html" %}
+{% block title %}Изменить настройки{% endblock %}
+{% block content %}
+    {% if sent %}
+        <h1> Настройки изменены </h1>
+        <p>
+            "{{ bot.bot_name }}" обновлены настройки.
+        </p>
+    {% else %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center text-uppercase color1 pt-2">Отредактировать настройки "{{ bot.bot_name }}"</h2>
+            </div>
+        </div>
+        <form method="post">{% csrf_token %}
+       {% for f in form %}
+            <div class="row row-cols-md-2 pb-2">
+                <label class="col-md-3 col-form-label" for="{{ f.id_for_label }}"> {{ f.label }}:</label>
+                <div class="col-md-7">
+                    {{ f }}
+                </div>
+                <div class="form-error --danger">
+                    {{f.errors}}
+                </div>
+            </div>
+        {% endfor %}
+        <div class="row row-cols-md-2 pb-2 justify-content-center">
+            <div class="col-md-8 d-grid mx-auto">
+                <a href="{% url 'FAQ:delete_bot' bot.id %}" class="btn btn-outline-danger mb-3">Удалить бота</a>
+            </div>
+            <div class="col-md-4 d-grid mx-auto">
+                <input type="submit" class="btn btn-outline-success mb-3" value="Сохранить">
+            </div>
+        </div>
+    </form>
+    </div>
+    {% endif %}
+{% endblock %}

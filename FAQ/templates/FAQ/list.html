@@ -1,0 +1,41 @@
+{% extends "base_FAQ.html" %}
+{% block title %}Список ботов{% endblock %}
+{% block content %}
+{% load static %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center color1 pt-2">Мои боты</h2>
+        </div>
+    </div>
+
+    <div class="row text-center row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+      {% for bot in bots%}
+          <div class="col mx-auto mb-5 justify-content-center" style='display: flex;'>
+            <div class="card h-100 w-180 text-center shadow bg-body rounded" style="width: 180px;">
+            {% if bot.status == "включен" %}
+              <div class="card-header bg1">
+            {% else %}
+              <div class="card-header">
+            {% endif %}
+                <small class="text-title color2">{{ bot.status }}</small>
+              </div>
+              <div class="card-body text-bottom text-primary">
+                  <h6 class="card-title">{{ bot.bot_name }}</h6>
+              </div>
+              <div class="card-footer text-center">
+                <a href="{% url 'FAQ:settings_bot_detail' bot.id %}" style="width: 100px;" class="btn btn-primary mb-2">Вопросы</a>
+                <a href="{% url 'FAQ:edit_settings_bot' bot.id %}" style="width: 100px;" class="btn btn-primary">Настройки</a>
+              </div>
+            </div>
+          </div>
+      {% endfor %}
+    </div>
+    <div class="row mb5">
+        <div class="d-grid mx-auto">
+             <a href="{% url 'FAQ:create_bot' %}" class="btn btn-outline-success mt-3 mb-3">Создать нового</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

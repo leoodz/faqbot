@@ -1,0 +1,192 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
+
+:root {
+    --color1:#05b1b1;
+    --color2:#52339a;
+    --gradient1: linear-gradient(45deg,  var(--color1) 0%, var(--color2) 100%);
+    --color_gray:#eee;
+}
+
+#footer {
+    padding: 50px 0;
+    font-size:14px;
+    overflow:auto;
+}
+
+#footer, #header{
+    background: #1e5799;
+    background: -moz-linear-gradient(45deg,  var(--color1) 0%, var(--color2) 100%);
+    background: -webkit-linear-gradient(45deg,  var(--color1) 0%, var(--color2) 100%);
+    background: linear-gradient(45deg,  var(--color1) 0%, var(--color2) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=var(--color1), endColorstr=var(--color2), GradientType=1 );
+}
+
+
+#header {
+    padding:10px 100px;
+    font-size:14px;
+    color:#fff;
+    border-bottom:4px solid #1cdf78;
+    overflow:auto;
+}
+
+#header .logo {
+    font-family: 'Muli', sans-serif;
+    float:left;
+    color:#f3f7cc;
+    font-size:20px;
+    margin-right:10%;
+}
+
+#header ul.menu {
+    list-style:none;
+    float:left;
+    margin:0;
+    padding:0;
+}
+#header ul.menu li {
+    float:left;
+    padding:4px 10px;
+}
+
+#header ul.menu li.selected a, #header ul.menu li.selected a:hover {
+    color:#1b6d32;
+    font-weight:bold;
+}
+
+#header a {
+    color:#f3f7cc;
+}
+#header a:hover {
+    color:#fff;
+}
+
+#header .user {
+    float:right;
+    color:#1b6d32
+    padding-top:4px;
+}
+
+
+/* Контент */
+
+.content {
+    background-color: var(--color_gray)
+    padding: 10px 0;
+    min-height: 45em
+}
+
+.content i {
+    font-size: 25px;
+    color: var(--color1)
+}
+
+
+
+/* Цвет */
+.color1 {
+    color: var(--color1)
+}
+.color2 {
+    color: var(--color2)
+}
+.bg1 {
+    background-color: var(--color1)
+}
+.bg2 {
+    background-color: var(--color2)
+}
+
+.bg3{
+    background: var(--color1);
+    background: -moz-linear-gradient(45deg,  var(--color1) 0%, var(--color2) 100%);
+    background: -webkit-linear-gradient(45deg,  var(--color1) 0%, var(--color2) 100%);
+    background: linear-gradient(45deg,  var(--color1) 0%, var(--color2) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=var(--color1), endColorstr=var(--color2), GradientType=1 );
+}
+
+.bg_content {
+    background-color: var(--color_gray)
+}
+
+/* Формы */
+.form-error {
+    color:#ff1a00;
+}
+
+.form-check-input {
+margin-left: 0 !important;
+}
+
+.form-check-input > (max-width: 768px) {
+margin-left: 0 !important;
+
+}
+/* Кнопки форм */
+
+.submit-row {
+    padding: 12px 14px;
+    margin: 0 0 0px;
+    border-radius: 4px;
+    text-align: right;
+    overflow: hidden;
+}
+
+body.popup .submit-row {
+    overflow: auto;
+}
+
+.submit-row input.custom {
+    height: 35px;
+    margin: 0 0 0 5px;
+}
+
+.submit-row input.default {
+    height: 35px;
+    float: right;
+    margin: 0 0 0 8px;
+    text-transform: uppercase;
+}
+
+.submit-row a.delete {
+    height: 35px;
+    float: left;
+    display: inline-block;
+    margin: 0 0 0 5px;
+}
+
+@media (max-width: 768px) {
+
+    /* Content */
+
+    .content {
+    background-color: var(--color_gray)
+    padding: 10px 0;
+    min-height: 0em
+    }
+
+    /* Submit row */
+
+    .submit-row {
+        padding: 10px 10px 0;
+        margin: 0 0 0px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .submit-row > * {
+        width: 100%;
+    }
+
+    .submit-row input.custom, .submit-row input.default, .submit-row a.delete, .submit-row a, .submit-row a.closelink {
+        float: none;
+        margin: 0 0 10px;
+        text-align: center;
+    }
+
+    .submit-row a.delete {
+        order: 4;
+    }
+
+    /* footer */
+

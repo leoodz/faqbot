@@ -1,0 +1,17 @@
+ {% extends "base_FAQ.html" %}
+{% block title %}Удалить бота {{ object }}{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row text-center">
+        </div class="col-12 text-center">
+            <form method="post">{% csrf_token %}
+                <h5 class="text-center text-danger mt-3">Вы действительно хотите удалить бота "{{ object }}" и все его вопросы?</h5>
+                <div class="submit-row text-center">
+                    <a href="{% url 'FAQ:edit_settings_bot' object.pk%}" class="btn btn-outline-primary custom">Отмена</a>
+                    <input type="submit" class="btn btn-outline-danger custom" value="Удалить" name="_delete">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

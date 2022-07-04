@@ -1,0 +1,54 @@
+{% extends "base_FAQ.html" %}
+{% block title %}Вопросы {{ bot.bot_name }}{% endblock %}
+{% block content %}
+{% load static %}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center color1 pt-2">Вопросы "{{ bot.bot_name }}"</h2>
+        </div>
+    </div>
+
+    {% if questions %}
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table table-borderless table-hover table-sm">
+              <thead>
+                <tr>
+                  <th scope="col"><h5 class="text-title color2">Вопрос</h5></th>
+
+                  <th scope="col"><h5 class="text-title color2">Действия</h5></th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for question in questions%}
+                <tr>
+                  <td>
+                      <a href="{{ question.get_absolute_url }}">{{ question.question }}</a>
+                  </td>
+                  <td>
+                      <a href="{% url 'FAQ:delete_question' bot.id question.id %}" class="btn btn-outline-danger btn-sm">Удалить</a>
+                      <a href="{% url 'FAQ:edit_questions' bot.id question.id %}" class="btn btn-outline-primary btn-sm">Изменить</a>
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    {% else %}
+
+    <div class="text-center mb-3">
+        <h4 class="text-center color2">У меня еще нет вопросов, пожалуйста добавьте их.</h4>
+        <img src="{% static "img/telegram-bot.png" %}" class="img-fluid">
+    </div>
+
+    {% endif %}
+    </div>
+
+    <div class="submit-row text-center">
+            <a href="{% url 'FAQ:create_question' bot.id %}" class="btn btn-outline-success custom ">Добавить вопрос</a>
+    </div>
+</div>
+{% endblock %}
